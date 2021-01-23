@@ -14,6 +14,9 @@
 # production
 /build
 
+# vs code
+.eslintcache
+
 # misc
 .DS_Store
 .env.local
