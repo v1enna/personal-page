@@ -23,12 +23,11 @@ body {
   height: 100%;
 }
 .container .game {
-  margin: 5px;
-  width: 500px;
+  width: 550px;
   height: 500px;
   display: flex;
   flex-direction: column;
-  box-shadow: 0px 0px 10px purple;
+  box-shadow: 0px 0px 7px #461E76;
 }
 .container .game .score {
   height: 50px;
@@ -46,13 +45,52 @@ body {
   background: #300C5D;
 }
 .container .about {
-  margin: 5px;
-  width: 500px;
+  margin-left: 25px;
+  width: 550px;
   height: 500px;
   align-items: left;
   flex-direction: column;
   display: flex;
   justify-content: center;
+}
+.container .about h1 {
+  font-size: 50px;
+  font-weight: 900;
+}
+.container .about h2 {
+  font-size: 30px;
+  font-weight: 100;
+  margin-top: -10px;
+  margin-bottom: 10px;
+}
+.container .about h3 {
+  margin-top: 50px;
+  font-weight: 200 !important;
+}
+.container .about h3 a {
+  color: white !important;
+  text-decoration: none;
+}
+.container .about h3 a:hover {
+  text-decoration: underline;
+}
+.container .about .icons img {
+  margin-right: 7.5px;
+}
+.container .about .icons img:hover {
+  mix-blend-mode: soft-light;
+}
+.container .about .icons .github {
+  width: 28px;
+  height: 28px;
+}
+.container .about .icons .linkedin {
+  width: 27px;
+  height: 26px;
+}
+.container .about .icons .gmail {
+  width: 32px;
+  height: 25px;
 }
 
 /*# sourceMappingURL=style.css.map */

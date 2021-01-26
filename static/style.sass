@@ -2,8 +2,14 @@
 
 $box_colors: #57358E #461E76 #300C5D
 $font: 'Open Sans', sans-serif
-$box_size: 500px 500px
+$box_size: 550px 500px
 $score_size: 50px
+
+$github_logo: 'public/github.png'
+$gmail_logo: 'public/gmail.png'
+$linkedin_logo: 'public/gmail.png'
+
+$icon_size: 30px 30px
 
 *
     padding: 0
@@ -26,12 +32,11 @@ body
     height: 100%
 
     .game
-        margin: 5px
         width: nth($box_size, 1)
         height: nth($box_size, 2)
         display: flex
         flex-direction: column
-        box-shadow: 0px 0px 10px purple
+        box-shadow: 0px 0px 7px nth($box_colors, 2)
 
         .score
             height: $score_size
@@ -48,12 +53,54 @@ body
             height: 100%
             background: nth($box_colors, 3)
 
-
     .about
-        margin: 5px
+        margin-left: 25px
         width: nth($box_size, 1)
         height: nth($box_size, 2)
         align-items: left
         flex-direction: column
         display: flex
         justify-content: center
+
+        h1  
+            font-size: 50px
+            font-weight: 900
+
+
+        h2
+            font-size: 30px
+            font-weight: 100
+            margin-top: -10px
+            margin-bottom: 10px
+
+        h3 
+            margin-top: 50px
+            font-weight: 200 !important
+
+            a
+                color: white !important
+                text-decoration: none
+
+            a:hover
+                text-decoration: underline
+
+        .icons
+
+            img
+                margin-right: 7.5px
+            
+            img:hover  
+                mix-blend-mode: soft-light
+
+            .github
+                width: 28px
+                height: 28px
+
+            .linkedin
+                width: 27px
+                height: 26px
+
+            .gmail
+                width: 32px
+                height: 25px
+
