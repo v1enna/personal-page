@@ -115,4 +115,21 @@ body {
   background: gold !important;
 }
 
+@media only screen and (max-width: 1000px) {
+  .game {
+    display: none !important;
+  }
+
+  .container {
+    justify-content: start !important;
+  }
+  .container .about h1 {
+    font-size: 45px;
+  }
+
+  .about {
+    justify-content: start !important;
+  }
+}
+
 /*# sourceMappingURL=style.css.map */
