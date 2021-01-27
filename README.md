@@ -1,8 +1,3 @@
-# Preview
-### Desktop
+# snake-js
 
-![Desktop](https://i.ibb.co/9N9gQpM/Desktop.png)
-
-### Mobile
-
-![Mobile](https://i.ibb.co/n6GRWYx/Mobile.png)
+Simple Snake game built in SASS and JS.
