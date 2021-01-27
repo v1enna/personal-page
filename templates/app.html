@@ -8,10 +8,28 @@
         <div class="container">
             <div class="game">
                 <div class="score">
-                    <h1>Score: 1</h1>
+                    <h1>Score: {{ score.get_points() }}</h1>
                 </div>
                 <div class="content">
+                    {%for i in range(0, board.get_rows())%}
+                        {%for j in range(0, board.get_columns())%}
+                        <div id="{{i}}-{{j}}" class="block
+                            {% if (i+j)%2 == 0 %}
+                                pair
+                            {% else %}
+                                odd
+                            {% endif %}
 
+                            {% if (i==board.get_starting_position()[0]) and (j==board.get_starting_position()[1]) %}
+                                snake
+                            {% endif %}
+
+                            {% if (i==board.get_coin().get_x()) and (j==board.get_coin().get_y()) %}
+                                coin
+                            {% endif %}
+                        "></div>
+                        {%endfor%}
+                    {%endfor%}
                 </div>
             </div>
             <div class="about">

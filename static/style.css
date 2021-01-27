@@ -23,7 +23,7 @@ body {
   height: 100%;
 }
 .container .game {
-  width: 550px;
+  width: 500px;
   height: 500px;
   display: flex;
   flex-direction: column;
@@ -43,10 +43,24 @@ body {
 .container .game .content {
   height: 100%;
   background: #300C5D;
+  display: flex;
+  align-items: rows;
+  flex-wrap: wrap;
+}
+.container .game .content .block {
+  width: 25px;
+  height: 25px;
+  display: flex;
+}
+.container .game .content .pair {
+  background: #0C002C;
+}
+.container .game .content .odd {
+  background: #190338;
 }
 .container .about {
   margin-left: 25px;
-  width: 550px;
+  width: 500px;
   height: 500px;
   align-items: left;
   flex-direction: column;
@@ -91,6 +105,14 @@ body {
 .container .about .icons .gmail {
   width: 32px;
   height: 25px;
+}
+
+.snake {
+  background: green !important;
+}
+
+.coin {
+  background: gold !important;
 }
 
 /*# sourceMappingURL=style.css.map */

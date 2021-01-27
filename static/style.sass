@@ -2,7 +2,7 @@
 
 $box_colors: #57358E #461E76 #300C5D
 $font: 'Open Sans', sans-serif
-$box_size: 550px 500px
+$box_size: 500px 500px
 $score_size: 50px
 
 $github_logo: 'public/github.png'
@@ -52,6 +52,20 @@ body
         .content
             height: 100%
             background: nth($box_colors, 3)
+            display: flex
+            align-items: rows
+            flex-wrap: wrap
+
+            .block
+                width: 25px
+                height: 25px
+                display: flex
+
+            .pair
+                background: #0C002C
+
+            .odd
+                background: #190338
 
     .about
         margin-left: 25px
@@ -104,3 +118,8 @@ body
                 width: 32px
                 height: 25px
 
+.snake
+    background: green !important
+
+.coin
+    background: gold !important
