@@ -10,11 +10,10 @@ class Board:
 
         self.starting_position = [randrange(rows), 
                                   randrange(columns)]
-
-        print('Starting position: ' + str(self.starting_position[0]) + ', ' + str(self.starting_position[1]))
         
-        self.snake = Snake()
         self.blocks[self.starting_position[0]][self.starting_position[1]] = True
+
+        self.snake = Snake(self.starting_position)
 
     def get_snake(self):
         return self.snake

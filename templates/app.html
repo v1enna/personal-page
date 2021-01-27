@@ -3,33 +3,162 @@
     <head>
         <title>Page</title>
         <link rel="stylesheet" href="{{ url_for('static', filename = 'style.css') }}">
+        <script>
+            
+        </script>
     </head>
     <body>
         <div class="container">
             <div class="game">
-                <div class="score">
-                    <h1>Score: {{ score.get_points() }}</h1>
+                <div id="points">
+                    <h1>Score:&nbsp;<span id="score">0</span></h1>
                 </div>
                 <div class="content">
-                    {%for i in range(0, board.get_rows())%}
-                        {%for j in range(0, board.get_columns())%}
-                        <div id="{{i}}-{{j}}" class="block
-                            {% if (i+j)%2 == 0 %}
-                                pair
-                            {% else %}
-                                odd
-                            {% endif %}
+                    <canvas id="snake" width="500" height="500"></canvas>
+                    <script>
+                        const score = document.getElementById('score');
 
-                            {% if (i==board.get_starting_position()[0]) and (j==board.get_starting_position()[1]) %}
-                                snake
-                            {% endif %}
+                        const board = document.getElementById('snake');
+                        const board_context = board.getContext("2d");
 
-                            {% if (i==board.get_coin().get_x()) and (j==board.get_coin().get_y()) %}
-                                coin
-                            {% endif %}
-                        "></div>
-                        {%endfor%}
-                    {%endfor%}
+                        let dx = 20;
+                        let dy = 0;
+
+                        let food_x;
+                        let food_y;
+
+                        let snake = [
+                            {
+                                x: 0,
+                                y: 0
+                            }, 
+                            {
+                                x: -20,
+                                y: 0
+                            }
+                        ];
+
+                        console.log(snake[0].x);
+                        
+                        function drawSnakePart(snakePart) {
+                            board_context.fillStyle = 'green';
+                            board_context.fillRect(snakePart.x, snakePart.y, 20, 20)
+                        }
+
+                        function drawSnake() {
+                            snake.forEach(drawSnakePart);
+                        }
+
+                        function clearCanvas() {
+                            board_context.fillStyle = "#300C5D";
+                            board_context.fillRect(0, 0, 500, 500);
+                        }
+
+                        function moveSnake() {
+                            const head = {
+                                x: snake[0].x + dx,
+                                y: snake[0].y + dy
+                            }
+                            snake.unshift(head);
+                            console.log('Snake: (' + snake[0].x + ', ' + snake[0].y + ')')
+                            console.log('Food: (' + food_x + ', ' + food_y + ')')
+                            if(snake[0].x === food_x && snake[0].y === food_y) {
+                                generateFood();
+                                score.innerText = parseInt(score.innerHTML) + 1;
+                            } else
+                                snake.pop();
+                        }
+
+                        function changeDirection(event) {
+                            const UP_KEY = 38;
+                            const DOWN_KEY = 40;
+                            const LEFT_KEY = 37;
+                            const RIGHT_KEY = 39;
+
+                            const keyPressed = event.keyCode;
+
+                            if(changingDirection)
+                                return;
+                            
+                            changingDirection = true;
+
+                            if(keyPressed == UP_KEY) {
+                                dx = 0;
+                                dy = -20;
+                            }
+
+                            if(keyPressed == DOWN_KEY) {
+                                dx = 0;
+                                dy = 20;
+                            }
+
+                            if(keyPressed == LEFT_KEY) {
+                                dx = -20;
+                                dy = 0;
+                            }
+
+                            if(keyPressed == RIGHT_KEY) {
+                                dx = 20;
+                                dy = 0;
+                            }
+                        }
+
+                        function death() {
+                            for(let i = 4; i < snake.length; i++) {
+                                const collision = snake[i].x == snake[0].x && snake[i].y == snake[0].y;
+                                if(collision)
+                                    return true;
+                            }
+                            const hitLeftWall = snake[0].x < 0;  
+                            const hitRightWall = snake[0].x > 500 - 20;
+                            const hitTopWall = snake[0].y < 0;
+                            const hitBottomWall = snake[0].y > 500 - 20;
+                            
+                            return hitLeftWall ||  hitRightWall || hitTopWall || hitBottomWall;
+                        }
+
+                        generateFood();
+                        document.addEventListener("keydown", changeDirection);
+
+                        function randomFood(x, y) {
+                            return Math.round((Math.random() * (x - y) + y) / 20) * 20;
+                        }
+
+                        function generateFood() {
+                            food_x = randomFood(0, 500 - 20);
+                            food_y = randomFood(0, 500 - 20);
+                            snake.forEach(function has_eaten(part) {
+                                if((part.x == food_x) && (part.y == food_y))
+                                    generateFood();
+                            });
+                        }
+
+                        function drawFood() {
+                            board_context.fillStyle = 'gold';
+                            console.log(food_x, food_y);
+                            board_context.fillRect(food_x, food_y, 20, 20);
+                        }
+
+                        function play() {
+
+                            if(death()) {
+                                console.log('Death');
+                                return;
+                            }
+                            
+                            changingDirection = false;
+
+                            setTimeout(function onTick() {
+                                clearCanvas();
+                                drawFood();
+                                moveSnake();
+                                drawSnake();
+                                play();
+                            }, 100)
+                        }
+
+                        play();
+                    </script>
                 </div>
             </div>
             <div class="about">
