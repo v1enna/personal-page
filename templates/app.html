@@ -29,20 +29,20 @@
 
                         let snake = [
                             {
-                                x: 0,
-                                y: 0
+                                x: 20,
+                                y: 20
                             }, 
                             {
-                                x: -20,
-                                y: 0
+                                x: 0,
+                                y: 20
                             }
                         ];
-
-                        console.log(snake[0].x);
                         
                         function drawSnakePart(snakePart) {
-                            board_context.fillStyle = 'green';
-                            board_context.fillRect(snakePart.x, snakePart.y, 20, 20)
+                            board_context.fillStyle = "#B37AF8";
+                            board_context.strokeStyle = "#461E76 ";
+                            board_context.fillRect(snakePart.x, snakePart.y, 20, 20);
+                            board_context.strokeRect(snakePart.x, snakePart.y, 20, 20);
                         }
 
                         function drawSnake() {
@@ -50,7 +50,9 @@
                         }
 
                         function clearCanvas() {
-                            board_context.fillStyle = "#300C5D";
+                            img = new Image();
+                            src = img.src = "{{ url_for('static', filename = 'public/bg.png') }}";
+                            board_context.fillStyle = board_context.createPattern(img, 'repeat');
                             board_context.fillRect(0, 0, 500, 500);
                         }
 
@@ -60,8 +62,6 @@
                                 y: snake[0].y + dy
                             }
                             snake.unshift(head);
-                            console.log('Snake: (' + snake[0].x + ', ' + snake[0].y + ')')
-                            console.log('Food: (' + food_x + ', ' + food_y + ')')
                             if(snake[0].x === food_x && snake[0].y === food_y) {
                                 generateFood();
                                 score.innerText = parseInt(score.innerHTML) + 1;
@@ -104,7 +104,7 @@
                         }
 
                         function death() {
-                            for(let i = 4; i < snake.length; i++) {
+                            for(let i = 2; i < snake.length; i++) {
                                 const collision = snake[i].x == snake[0].x && snake[i].y == snake[0].y;
                                 if(collision)
                                     return true;
@@ -134,16 +134,37 @@
                         }
 
                         function drawFood() {
-                            board_context.fillStyle = 'gold';
-                            console.log(food_x, food_y);
+                            board_context.fillStyle = '#ff0061';
+                            board_context.strokeStyle = '#ff0000';
                             board_context.fillRect(food_x, food_y, 20, 20);
+                            board_context.strokeRect(food_x, food_y, 20, 20);
                         }
 
                         function play() {
 
                             if(death()) {
-                                console.log('Death');
-                                return;
+                                board_context.fillStyle = '#300C5D';
+                                board_context.fillRect(0, 0, 500, 500);
+                                board_context.fillStyle = 'white';
+                                board_context.font = '25px Open Sans';
+                                board_context.fillText("Woops. You're dead.", 140, 475);
+                                score.innerText = 0;
+                                setTimeout(function() {
+                                    dx = 20;
+                                    dy = 0;
+                                    snake = [
+                                        {
+                                            x: 20,
+                                            y: 20
+                                        }, 
+                                        {
+                                            x: 0,
+                                            y: 20
+                                        }
+                                    ];
+                                    board_context.clear();
+                                    play();
+                                }, 2000);
                             }
                             
                             changingDirection = false;
